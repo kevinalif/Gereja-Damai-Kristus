@@ -1,0 +1,211 @@
+<%- include('partials/_header', {title: 'Gereja Damai Kristus Paroki Kampung Duri' }) %>
+
+    <body>
+        <%- include('partials/_navbar') %>
+
+            <header class="hero-section">
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <h1>Gereja Damai Kristus Paroki Kampung Duri</h1>
+                    <p> Jl. Duri Selatan I No.46 Tambora, Jakarta Barat 11270</p>
+                    <div class="hero-buttons">
+                        <a href="/calendar" class="btn btn--primary"><i class="far fa-calendar-alt"></i> Kalendar
+                            Bulanan</a>
+                        <a href="#jadwal-misa" class="btn btn--outline"><i class="fas fa-clock"></i> Jadwal Misa</a>
+                    </div>
+                </div>
+            </header>
+
+            <main>
+                <div class="container">
+                    <section class="info-cards" id="jadwal-misa">
+                        <div class="info-card">
+                            <i class="fas fa-clock fa-2x"></i>
+                            <h3>Jadwal Sekretariat</h3>
+                            <p>Senin - Sabtu : 08.00 - 18.00</p>
+                            <hr class="info-divider">
+                            <p>Minggu dan Tanggal Merah Tutup</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-calendar-day fa-2x"></i>
+                            <h3>Jadwal Misa</h3>
+                            <p>Senin - Jumat : 6:00 </p>
+                            <p>Jumat Pertama : 18:30 </p>
+                            <hr class="info-divider">
+                            <p>Sabtu Sore : 18.30 </p>
+                            <p>Minggu : 06.30 dan 9.00 </p>
+                            <hr class="info-divider">
+                            <p>Hora Sancta : 18.30</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                            <h3>Alamat </h3>
+                            <p>Jl. Duri Selatan V No.29 10, RT.14/RW.2, Duri Sel., Kec. Tambora, Kota Jakarta Barat,
+                                Daerah Khusus Ibukota Jakarta 11270</p>
+                        </div>
+                    </section>
+
+                    <section class="upcoming-events">
+                        <h2>Acara Mendatang</h2>
+                        <p class="section-subtitle">Join us for our upcoming Masses, prayers, and community gatherings
+                        </p>
+
+                        <div class="event-cards-container row g-3 g-lg-4">
+                            <% const categoryClasses={ 'Special Events' : { card: 'event-card--special' ,
+                                tag: 'tag--special' }, 'Prayer & Devotion' : { card: 'event-card--prayer' ,
+                                tag: 'tag--prayer' }, 'Community Activities' : { card: 'event-card--community' ,
+                                tag: 'tag--community' } }; %>
+
+                                <% if (events && events.length> 0) { %>
+                                    <% events.forEach(event=> { %>
+                                        <% let displayTime='' ; if (event.start_time) { const [h,
+                                            m]=event.start_time.split(':'); const hour=parseInt(h, 10); const minute=m;
+                                            const ampm=hour>= 12 ? 'PM' : 'AM';
+                                            const displayHour = hour % 12 || 12;
+                                            displayTime = `${displayHour}:${minute} ${ampm}`;
+                                            }
+                                            %>
+
+                                            <div class="col-lg-4 col-md-6 col-12">
+                                                <div class="event-card h-100 <%= categoryClasses[event.category]?.card || '' %>"
+                                                    data-title="<%= event.title %>" data-tag="<%= event.category %>"
+                                                    data-date="<%= new Date(event.event_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %>"
+                                                    data-time="<%= displayTime %>" data-location="<%= event.location %>"
+                                                    data-contact-person="<%= event.contact_person %>"
+                                                    data-contact-info="<%= event.contact_info %>"
+                                                    data-description="<%= event.description %>">
+
+                                                    <div class="event-card-header">
+                                                        <h3 class="event-card-title">
+                                                            <%= event.title %>
+                                                        </h3>
+                                                        <span
+                                                            class="event-tag <%= categoryClasses[event.category]?.tag || '' %>">
+                                                            <%= event.category %>
+                                                        </span>
+                                                    </div>
+                                                    <ul class="event-details">
+                                                        <li><i class="far fa-calendar-alt"></i>
+                                                            <%= new Date(event.event_date).toLocaleDateString('en-US', {
+                                                                month: 'long' , day: 'numeric' , year: 'numeric' }) %>
+                                                        </li>
+                                                        <% if (displayTime) { %>
+                                                            <li><i class="far fa-clock"></i>
+                                                                <%= displayTime %>
+                                                            </li>
+                                                            <% } %>
+                                                                <li><i class="fas fa-map-marker-alt"></i>
+                                                                    <%= event.location %>
+                                                                </li>
+                                                                <li><i class="fas fa-user"></i>
+                                                                    <%= event.contact_person %>
+                                                                </li>
+                                                    </ul>
+                                                    <p class="event-description">
+                                                        <%= event.description %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                                <% } else { %>
+                                                    <p>There are no upcoming events at this time. Please check back
+                                                        later.</p>
+                                                    <% } %>
+                        </div>
+
+                        <div class="calendar-button-container">
+                            <a href="/calendar" class="btn btn--primary">Lihat Kalendar Bulanan</a>
+                        </div>
+                    </section>
+
+                    <section class="ministries-section">
+                        <h2>Our Ministries</h2>
+                        <p class="section-subtitle">Get involved in our vibrant parish community</p>
+
+                        <div class="ministry-cards-container row g-4">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="ministry-card h-100">
+                                    <div class="ministry-icon-wrapper">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <h3>Youth Ministry</h3>
+                                    <p>Empowering young Catholics through faith formation, service, and fellowship.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="ministry-card h-100">
+                                    <div class="ministry-icon-wrapper">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <h3>Social Action</h3>
+                                    <p>Serving our community through outreach, charity, and compassionate care.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-12">
+                                <div class="ministry-card h-100">
+                                    <div class="ministry-icon-wrapper">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <h3>Faith Formation</h3>
+                                    <p>Growing in faith through education, prayer, and spiritual development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <div class="modal-overlay" id="event-modal-overlay">
+                <div class="modal" id="event-modal">
+                    <div class="modal-header">
+                        <div class="modal-header-content">
+                            <h3 id="modal-title">Event Title</h3>
+                            <span class="event-tag" id="modal-tag">Event Tag</span>
+                        </div>
+                        <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-detail-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <div>
+                                <span>Date</span>
+                                <strong id="modal-date">December 24, 2024</strong>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <i class="far fa-clock"></i>
+                            <div>
+                                <span>Time</span>
+                                <strong id="modal-time">10:00 PM</strong>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <span>Location</span>
+                                <strong id="modal-location">Main Church</strong>
+                            </div>
+                        </div>
+                        <div class="modal-detail-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <span>Contact Person</span>
+                                <strong id="modal-contact-person">Fr. John Smith</strong>
+                                <a href="#" id="modal-contact-info">+1 234-567-8900</a>
+                            </div>
+                        </div>
+                        <div class="modal-description">
+                            <h4>Description</h4>
+                            <p id="modal-description">Join us for our special Christmas Eve midnight Mass celebration
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('partials/_footer') %>
+    </body>
+
+    </html>

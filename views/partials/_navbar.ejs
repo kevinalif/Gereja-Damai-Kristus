@@ -1,0 +1,37 @@
+<nav class="main-nav">
+    <div class="container">
+        <a href="/" class="nav-logo">
+            <img src="/images/LOGO_DAMAI_2.png" alt="Logo Gereja Damai">
+            Gereja Damai Kristus
+        </a>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-menu">
+            <% 
+               // Fungsi untuk cek apakah judul halaman cocok
+               const isActive = (checkTitle) => { 
+                   return typeof title !== 'undefined' && title.includes(checkTitle) ? 'active' : '';
+               } 
+            %>
+
+            <li><a href="/" class="<%= isActive('Home') || isActive('Gereja Damai') %>">Home</a></li>
+            
+            <li><a href="/calendar" class="<%= isActive('Calendar') %>">Kalendar</a></li>
+            
+            <li><a href="/about" class="<%= isActive('About') %>">About</a></li>
+
+            <li><a href="/contact" class="<%= isActive('Contact') %>">Contact</a></li>
+
+            <li><a href="/sakramen" class="<%= isActive('Sakramen') %>">Sakramen</a></li>
+
+            <!-- <li><a href="#">Donasi</a></li> -->
+            
+            <li><a href="/login" class="<%= isActive('Login') %>">Login</a></li>
+        </ul>
+    </div>
+</nav>

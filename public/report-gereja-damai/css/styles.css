@@ -1,0 +1,1448 @@
+
+:root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Menu Active State */
+.menu-item {
+    transition: all 0.2s;
+}
+
+.menu-item.active {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+
+.menu-item:hover {
+    background-color: hsl(var(--accent));
+}
+
+/* Hamburger Menu for Mobile */
+#sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: calc(var(--radius) - 2px);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0;
+}
+
+#sidebar-toggle.active {
+    display: flex;
+}
+
+#sidebar-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: currentColor;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+}
+
+#sidebar-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(10px, 10px);
+}
+
+#sidebar-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+#sidebar-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Sidebar Overlay */
+#sidebar-overlay {
+    display: none;
+}
+
+#sidebar-overlay.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+}
+
+/* Card Styles */
+.card {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    outline: none;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+}
+
+.btn-primary:hover {
+    opacity: 0.95;
+    background-color: rgb(37, 99, 235);
+    border-color: rgb(37, 99, 235);
+}
+
+.btn-secondary {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border-color: hsl(var(--secondary));
+}
+
+.btn-secondary:hover {
+    background-color: hsl(var(--secondary) / 0.9);
+}
+
+.btn-outline {
+    border: 1.5px solid hsl(var(--border));
+    background-color: transparent;
+    color: hsl(var(--foreground));
+}
+
+.btn-outline:hover {
+    background-color: hsl(var(--accent));
+    border-color: hsl(var(--accent));
+}
+
+/* Input Styles */
+.input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    border-color: hsl(var(--ring));
+    box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    animation: fadeIn 0.2s;
+}
+
+.modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: hsl(var(--background));
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 500px;
+    width: calc(100% - 2rem);
+    z-index: 51;
+    animation: fadeIn 0.2s;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Toast Styles */
+.toast {
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s;
+    min-width: 300px;
+}
+
+.toast.success {
+    border-left: 4px solid #10b981;
+}
+
+.toast.error {
+    border-left: 4px solid #ef4444;
+}
+
+.toast.info {
+    border-left: 4px solid #3b82f6;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.table th {
+    text-align: left;
+    padding: 0.75rem 0.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid hsl(var(--border));
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid hsl(var(--border));
+}
+
+.table tbody tr:hover {
+    background-color: hsl(var(--muted) / 0.5);
+}
+
+/* Chart Container Responsive */
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure proper overflow handling */
+.overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    border-radius: 0 0 calc(var(--radius)) calc(var(--radius));
+    margin: 0 -1.5rem -1.5rem -1.5rem;
+    padding: 0 1.5rem 1rem 1.5rem;
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.4);
+    border-radius: 4px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.6);
+}
+
+/* Firefox Scrollbar */
+.overflow-x-auto {
+    scrollbar-color: hsl(var(--muted-foreground) / 0.4) hsl(var(--muted));
+    scrollbar-width: thin;
+}
+
+/* Events Calendar Styles */
+/* FullCalendar Styling */
+#calendar-fullcalendar {
+    font-size: 0.875rem;
+}
+
+#calendar-fullcalendar .fc {
+    font-family: inherit;
+}
+
+#calendar-fullcalendar .fc-button-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+#calendar-fullcalendar .fc-button-primary:hover {
+    background-color: rgb(37, 99, 235);
+    border-color: rgb(37, 99, 235);
+}
+
+#calendar-fullcalendar .fc-button-primary.fc-button-active {
+    background-color: rgb(29, 78, 216);
+    border-color: rgb(29, 78, 216);
+}
+
+#calendar-fullcalendar .fc-button-primary:disabled {
+    background-color: var(--border);
+    border-color: var(--border);
+}
+
+#calendar-fullcalendar .fc-daygrid-day.fc-day-today {
+    background-color: rgba(59, 130, 246, 0.1) !important;
+}
+
+#calendar-fullcalendar .fc-col-header-cell {
+    padding: 0.5rem 0.25rem;
+}
+
+#calendar-fullcalendar .fc-daygrid-day {
+    padding: 0.25rem;
+}
+
+#calendar-fullcalendar .fc-event {
+    border: none;
+    padding: 1px 3px;
+    margin-bottom: 1px;
+}
+
+#calendar-fullcalendar .fc-event-title {
+    font-size: 0.75rem;
+    padding: 0 2px;
+}
+
+/* Event Items - Default */
+.event-item {
+    padding: 1rem;
+    background: hsl(var(--muted) / 0.5);
+    border-radius: calc(var(--radius) - 2px);
+    transition: all 0.2s;
+}
+
+.event-item:hover {
+    background: hsl(var(--muted));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid hsl(var(--muted));
+    border-top: 3px solid hsl(var(--primary));
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+}
+/* ============================================
+   RESPONSIVE DESIGN - MEDIA QUERIES
+   ============================================ */
+
+/* ============================================
+   TABLET (768px - 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+    /* Sidebar */
+    aside {
+        width: 200px !important;
+    }
+
+    aside p {
+        font-size: 0.75rem;
+    }
+
+    .p-4 {
+        padding: 1rem;
+    }
+
+    /* Main Content */
+    main {
+        overflow-x: hidden;
+    }
+
+    .p-6 {
+        padding: 1.25rem !important;
+    }
+
+    /* Cards */
+    .card {
+        padding: 1.25rem;
+    }
+
+    /* Button Sizes */
+    .btn {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    /* Input Sizes */
+    .input {
+        padding: 0.45rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    /* Tables */
+    .table th,
+    .table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.85rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        max-width: 400px;
+        padding: 1.25rem;
+    }
+
+    /* Text Sizes */
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+}
+
+/* ============================================
+   MOBILE (< 768px)
+   ============================================ */
+@media (max-width: 768px) {
+    /* Body & App */
+    body {
+        overflow-x: hidden;
+    }
+
+    #app {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* Sidebar Toggle Button */
+    #sidebar-toggle {
+        display: flex !important;
+    }
+
+    /* Calendar & Events Layout - Stack Vertically on Mobile */
+    .grid.grid-cols-1.lg\:grid-cols-4 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .card.lg\:col-span-2 {
+        grid-column: span 1 !important;
+    }
+
+    /* Event List - Better Height Management on Mobile */
+    #upcoming-events,
+    #all-events {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+    }
+
+    /* Calendar Responsive on Mobile */
+    #calendar-fullcalendar {
+        height: 450px !important;
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+    /* Calendar Container Fix */
+    #calendar-fullcalendar .fc {
+        overflow: visible !important;
+    }
+
+    /* Calendar Header & Navigation */
+    #calendar-fullcalendar .fc-header-toolbar {
+        padding: 0.5rem !important;
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #calendar-fullcalendar .fc-toolbar-title {
+        font-size: 0.85rem !important;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    #calendar-fullcalendar .fc-button-group {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        justify-content: center;
+    }
+
+    #calendar-fullcalendar .fc-button {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem !important;
+        height: auto;
+        line-height: 1.2;
+    }
+
+    #calendar-fullcalendar .fc-button-primary {
+        border: 1px solid hsl(var(--primary));
+    }
+
+    /* Day Grid Styling */
+    #calendar-fullcalendar .fc-col-header {
+        padding: 0 !important;
+    }
+
+    #calendar-fullcalendar .fc-col-header-cell {
+        padding: 0.3rem 0 !important;
+        font-size: 0.6rem;
+        font-weight: 600;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day {
+        padding: 0 !important;
+        min-height: 65px;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day-number {
+        padding: 0.2rem !important;
+        font-size: 0.6rem;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day-frame {
+        min-height: 65px !important;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day-bg {
+        min-height: 65px !important;
+    }
+
+    #calendar-fullcalendar .fc-event {
+        margin: 0.5px !important;
+        padding: 1px !important;
+        border: 1px solid hsl(var(--primary)) !important;
+        font-size: 0.55rem;
+    }
+
+    #calendar-fullcalendar .fc-event-title {
+        font-size: 0.55rem !important;
+        padding: 0 !important;
+        line-height: 1;
+        word-wrap: break-word;
+    }
+
+    /* Time Grid Styling */
+    #calendar-fullcalendar .fc-timegrid {
+        border-collapse: collapse;
+    }
+
+    #calendar-fullcalendar .fc-timegrid-slot {
+        height: 1.8rem !important;
+    }
+
+    #calendar-fullcalendar .fc-col-time-cell {
+        padding: 0 !important;
+        font-size: 0.55rem;
+        text-align: center;
+        width: 50px !important;
+    }
+
+    #calendar-fullcalendar .fc-timegrid-cell {
+        padding: 0 !important;
+    }
+
+    /* Fix for all-day events row */
+    #calendar-fullcalendar .fc-daygrid-body {
+        position: relative;
+    }
+
+    /* Event Items Mobile - Better Styling */
+    #upcoming-events > div,
+    #all-events > div {
+        padding: 0.85rem !important;
+        gap: 0.6rem !important;
+        border-radius: 0.5rem;
+        background: hsl(var(--card));
+        border: 1px solid hsl(var(--border));
+        transition: all 0.2s;
+    }
+
+    #upcoming-events > div:hover,
+    #all-events > div:hover {
+        background: hsl(var(--muted) / 0.3);
+        border-color: hsl(var(--primary) / 0.3);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    #upcoming-events .text-lg {
+        font-size: 0.95rem !important;
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    #upcoming-events .text-xs,
+    #all-events .text-xs {
+        font-size: 0.7rem !important;
+        color: hsl(var(--muted-foreground));
+    }
+
+    #upcoming-events .text-sm,
+    #all-events .text-sm {
+        font-size: 0.8rem !important;
+    }
+
+    #upcoming-events h4,
+    #all-events h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    /* Event Badge */
+    .badge {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.7rem;
+        border-radius: 9999px;
+        display: inline-block;
+    }
+
+    /* Sidebar */
+    aside {
+        width: 280px !important;
+        border-right: 1px solid hsl(var(--border));
+        border-bottom: none;
+        position: fixed;
+        top: 0;
+        left: -280px;
+        height: 100vh;
+        max-height: 100vh;
+        z-index: 50;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        background-color: hsl(var(--background));
+    }
+
+    aside.show {
+        left: 0;
+    }
+
+    aside nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+
+    aside nav ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    aside nav li {
+        flex: none;
+        width: 100%;
+    }
+
+    aside nav a,
+    aside nav button {
+        font-size: 0.95rem;
+        padding: 0.75rem 1.5rem !important;
+        width: 100%;
+        text-align: left;
+        border-radius: 0;
+        justify-content: flex-start;
+    }
+
+    aside nav a:hover,
+    aside nav button:hover {
+        background-color: hsl(var(--muted));
+    }
+
+    /* Sidebar Logo */
+    aside .p-4 {
+        padding: 1.5rem;
+        border-bottom: 1px solid hsl(var(--border));
+    }
+
+    aside .p-4 h1 {
+        font-size: 1.2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    aside .p-4 p {
+        font-size: 0.85rem;
+        margin: 0;
+    }
+
+    /* Logout Button */
+    aside .absolute.bottom-20 {
+        position: static;
+        width: 100%;
+        margin: 1rem 0 0 0;
+        padding: 0 1.5rem;
+    }
+
+    aside .absolute.bottom-0 {
+        position: static;
+        width: 100%;
+        margin-top: auto;
+        padding: 1.5rem;
+        border-top: 1px solid hsl(var(--border));
+        border-bottom: none;
+    }
+
+    /* Main Content */
+    main {
+        flex: 1;
+        overflow: auto;
+        width: 100%;
+    }
+
+    .p-6 {
+        padding: 1.25rem !important;
+    }
+
+    .p-4 {
+        padding: 1rem;
+    }
+
+    /* Cards & Grid - Better Spacing */
+    .card {
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid hsl(var(--border));
+        background: hsl(var(--card));
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+        color: hsl(var(--muted-foreground));
+    }
+
+    /* Grid Layout */
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .gap-4 {
+        gap: 1rem !important;
+    }
+
+    .gap-6 {
+        gap: 1.5rem !important;
+    }
+
+    /* Stats Cards */
+    #stats-cards {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1rem !important;
+    }
+
+    #stats-cards > div {
+        padding: 1rem;
+    }
+
+    /* Button Styles - Touch Friendly & Visible */
+    .btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.8rem;
+        width: auto;
+        justify-content: center;
+        min-height: 44px;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+        border: 1.5px solid transparent;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .btn-primary {
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+        border-color: hsl(var(--primary));
+    }
+
+    .btn-primary:hover {
+        background-color: rgb(37, 99, 235);
+        border-color: rgb(37, 99, 235);
+    }
+
+    #btn-add-event {
+        width: 100%;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+
+    button,
+    [role="button"] {
+        padding: 0.7rem 1.2rem !important;
+        font-size: 0.85rem !important;
+        min-height: 44px;
+        border: 1.5px solid transparent;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    /* Exclude FullCalendar buttons from general button styling */
+    #calendar-fullcalendar button,
+    #calendar-fullcalendar [role="button"] {
+        padding: unset !important;
+        font-size: unset !important;
+        min-height: unset;
+        border: unset;
+        font-weight: unset;
+        border-radius: unset;
+        display: unset;
+        align-items: unset;
+        justify-content: unset;
+        gap: unset;
+    }
+
+    button:hover,
+    [role="button"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active,
+    [role="button"]:active {
+        transform: translateY(0);
+    }
+
+    /* Header on Mobile */
+    .space-y-6 > div:first-child {
+        flex-direction: column !important;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .space-y-6 > div:first-child button {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Input Styles - Mobile Optimized */
+    .input {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.9rem;
+        width: 100%;
+        border-radius: 0.5rem;
+        height: auto;
+        min-height: 40px;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 1rem !important;
+        padding: 0.6rem 0.75rem !important;
+        border-radius: 0.5rem;
+    }
+
+    /* Filter Kategori */
+    #filter-kategori {
+        width: 100%;
+        margin-top: 0.75rem;
+    }
+
+    /* Form Layout */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    /* Tables */
+    .table {
+        font-size: 0.8rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .table th {
+        font-size: 0.75rem;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        padding: 1rem;
+    }
+
+    .modal-content {
+        max-width: 100%;
+        width: calc(100% - 2rem);
+        padding: 1.5rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Toast */
+    .toast {
+        min-width: 280px;
+        margin: 0.5rem;
+    }
+
+    #toast-container {
+        right: 0.5rem !important;
+        left: 0.5rem !important;
+    }
+
+    /* Typography */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    /* Spacing */
+    .space-y-4 {
+        gap: 1rem !important;
+    }
+
+    .space-y-6 {
+        gap: 1.5rem !important;
+    }
+
+    /* Flex Layouts */
+    .flex-col {
+        flex-direction: column !important;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap !important;
+    }
+
+    .items-center {
+        align-items: center !important;
+    }
+
+    /* Table Responsiveness */
+    .table {
+        font-size: 0.8rem;
+        min-width: 500px;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.5rem 0.25rem;
+    }
+
+    .table th {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    .table td {
+        word-break: break-word;
+    }
+
+    /* Ensure overflow for tables */
+    .overflow-x-auto {
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -1rem -1rem -1rem;
+        padding: 0 1rem 0.75rem 1rem;
+    }
+
+    /* Chart Wrapper */
+    [style*="position: relative; height: 300px"] {
+        height: 250px !important;
+    }
+
+    /* Chart Container */
+    canvas {
+        max-height: 300px !important;
+    }
+
+    /* Overflow Handling */
+    .overflow-auto {
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Touch Friendly */
+    button,
+    a[role="button"],
+    input[type="button"],
+    input[type="submit"],
+    [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* ============================================
+   EXTRA SMALL (< 480px)
+   ============================================ */
+@media (max-width: 480px) {
+    /* Sidebar Toggle Button */
+    #sidebar-toggle {
+        display: flex !important;
+    }
+
+    /* App */
+    #app {
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    aside {
+        width: 240px !important;
+        left: -240px;
+    }
+
+    aside nav ul {
+        gap: 0;
+        flex-direction: column;
+    }
+
+    aside nav li {
+        flex: none;
+        width: 100%;
+        min-width: auto;
+    }
+
+    aside nav a,
+    aside nav button {
+        font-size: 0.9rem;
+        padding: 0.65rem 1.25rem !important;
+    }
+
+    /* Main Content */
+    .p-6 {
+        padding: 0.75rem !important;
+    }
+
+    .p-4 {
+        padding: 0.75rem !important;
+    }
+
+    /* Cards */
+    .card {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Calendar Extra Small */
+    #calendar-fullcalendar {
+        height: 400px !important;
+    }
+
+    #calendar-fullcalendar .fc-header-toolbar {
+        padding: 0.4rem !important;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+    }
+
+    #calendar-fullcalendar .fc-toolbar-title {
+        font-size: 0.8rem !important;
+        width: 100%;
+        margin-bottom: 0.3rem !important;
+    }
+
+    #calendar-fullcalendar .fc-button {
+        font-size: 0.58rem;
+        padding: 0.25rem 0.4rem !important;
+        height: auto;
+    }
+
+    #calendar-fullcalendar .fc-col-header-cell {
+        padding: 0.2rem 0 !important;
+        font-size: 0.52rem;
+    }
+
+    #calendar-fullcalendar .daygrid-day-number {
+        padding: 0.15rem !important;
+        font-size: 0.55rem;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day {
+        min-height: 55px;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day-frame {
+        min-height: 55px !important;
+    }
+
+    #calendar-fullcalendar .fc-daygrid-day-bg {
+        min-height: 55px !important;
+    }
+
+    #calendar-fullcalendar .fc-event {
+        font-size: 0.5rem !important;
+    }
+
+    #calendar-fullcalendar .fc-event-title {
+        font-size: 0.5rem !important;
+    }
+
+    #calendar-fullcalendar .fc-timegrid-slot {
+        height: 1.5rem !important;
+    }
+
+    #calendar-fullcalendar .fc-col-time-cell {
+        font-size: 0.5rem;
+    }
+
+    /* Event Items Extra Small */
+    #upcoming-events > div,
+    #all-events > div {
+        padding: 0.75rem !important;
+        gap: 0.4rem !important;
+    }
+
+    #upcoming-events .text-lg {
+        font-size: 0.85rem !important;
+    }
+
+    #upcoming-events .text-sm,
+    #all-events .text-sm {
+        font-size: 0.7rem !important;
+    }
+
+    #upcoming-events .text-xs,
+    #all-events .text-xs {
+        font-size: 0.65rem !important;
+    }
+
+    #upcoming-events h4,
+    #all-events h4 {
+        font-size: 0.8rem;
+    }
+
+    /* Buttons - Extra Small Optimization */
+    .btn {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.75rem;
+        min-height: 40px;
+        border: 1.5px solid transparent;
+        font-weight: 600;
+        border-radius: 0.4rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    button {
+        padding: 0.6rem 0.9rem !important;
+        font-size: 0.8rem !important;
+        min-height: 40px;
+        border: 1.5px solid transparent;
+        font-weight: 600;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+    }
+
+    /* Exclude FullCalendar buttons from general button styling */
+    #calendar-fullcalendar button {
+        padding: unset !important;
+        font-size: unset !important;
+        min-height: unset;
+        border: unset;
+        font-weight: unset;
+        border-radius: unset;
+        display: unset;
+        align-items: unset;
+        justify-content: unset;
+        gap: unset;
+    }
+
+    button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    /* Input */
+    .input {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.85rem;
+        min-height: 36px;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 0.9rem !important;
+        padding: 0.5rem !important;
+        min-height: 36px;
+    }
+
+    /* Typography */
+    h1 {
+        font-size: 1.25rem;
+        margin: 0.5rem 0;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        margin: 0.4rem 0;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    h4,
+    label {
+        font-size: 0.85rem;
+    }
+
+    p,
+    span,
+    div {
+        font-size: 0.85rem;
+    }
+
+    /* Tables */
+    .table {
+        font-size: 0.75rem;
+        min-width: 450px;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.4rem 0.2rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+
+    /* Toast */
+    .toast {
+        min-width: 250px;
+        font-size: 0.8rem;
+    }
+
+    /* Spacing */
+    .gap-4 {
+        gap: 0.75rem !important;
+    }
+
+    .gap-6 {
+        gap: 1rem !important;
+    }
+
+    .space-y-2,
+    .space-y-4,
+    .space-y-6 {
+        gap: 0.75rem !important;
+    }
+
+    /* Grid */
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Flex */
+    .flex {
+        flex-wrap: wrap;
+    }
+
+    /* Icon Sizing */
+    [data-lucide] {
+        width: 18px !important;
+        height: 18px !important;
+    }
+
+    [data-lucide].h-5 {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    /* Sidebar Logo Icon */
+    aside [data-lucide] {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    /* Text Truncation */
+    .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Container Queries Support */
+    .container {
+        width: 100%;
+        padding: 0 0.5rem;
+    }
+}
