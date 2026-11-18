@@ -2,6 +2,13 @@
 
 Website informasi dan administrasi untuk Gereja Damai Kristus Paroki Kampung Duri. Aplikasi ini menyediakan halaman publik untuk informasi gereja, kalender kegiatan, sakramen, kontak, serta modul admin untuk mengelola data keuangan dan kegiatan gereja.
 
+## Anggota Kelompok
+-	Aurick Tantyrone
+-	Kevin Alif
+-	Vincent Andresson
+-	Nicholas Wijaya
+-	Figo Barosky
+
 ## Demo
 
 - Website: https://uas-webprog-production.up.railway.app/
@@ -70,27 +77,24 @@ Menu untuk mengelola kegiatan gereja:
 
 ## Teknologi
 
-Sesuaikan bagian ini dengan `package.json` dan konfigurasi repositori:
-
 - **Backend**: Node.js / Express
-- **Database**: sesuaikan, misalnya MySQL/PostgreSQL
+- **Database**: MySQL
 - **Upload file**: Multer
 - **Export/import Excel**: XLSX
 - **Deployment**: Railway
-- **Frontend**: HTML/CSS/JavaScript atau template engine yang digunakan
+- **Frontend**: HTML/CSS/JavaScript (EJS)
 
 ## Struktur Proyek
 
 ```text
 .
-├── public/              # Asset publik
-├── views/               # Halaman/template
-├── routes/              # Routing aplikasi
-├── controllers/         # Logic aplikasi
-├── models/              # Model database
-├── middleware/          # Middleware, termasuk auth/upload
-├── docs/
-│   └── screenshots/     # Screenshot untuk README
-├── .env.example
+├── api_config/          # Konfigurasi API/Database
+├── api_routes/          # Routing API
+├── public/              # Asset publik (CSS, JS, Gambar)
+├── views/               # Halaman/template EJS
+├── .gitignore
+├── generate-password.js # Script untuk generate password
+├── gereja-lengkap.sql   # File dump database
 ├── package.json
+├── server.js            # Entry point aplikasi
 └── README.md
